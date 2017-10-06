@@ -2,3 +2,21 @@ language: php
 
 php:
   - '7.0'
+
+services:
+  - mysql
+
+before_script:
+  - mysql -e 'CREATE DATABASE homestead_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'
+  - chmod -R 777 storage/
+  - chmod -R 777 bootstrap/cache/
+  - cp .env.travis .env
+  - composer self-update
+  - composer install --no-interaction
+  - php artisan key:generate
+  - php artisan migrate --database=mysql_test
+  
+script:
+  - vendor/bin/phpunit
+
+    
