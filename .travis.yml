@@ -1,3 +1,4 @@
+dist: trusty
 language: php
 
 php:
@@ -7,6 +8,7 @@ services:
   - mysql
 
 before_script:
+  - bash .travis.install-mysql-5.7.sh
   - mysql -e 'CREATE DATABASE homestead_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'
   - chmod -R 777 storage/
   - chmod -R 777 bootstrap/cache/
